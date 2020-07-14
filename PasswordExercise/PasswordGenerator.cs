@@ -77,5 +77,10 @@ namespace PasswordExcercise
 		{
 			return list[random.Next(list.Length)];
 		}
+
+		private int CountInstancesOfListItemsInString(string list, string currentString)
+		{
+			return currentString.Intersect(list).Count();
+		}
 	}
 }
