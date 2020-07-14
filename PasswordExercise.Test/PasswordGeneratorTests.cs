@@ -1,12 +1,11 @@
 ﻿using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 namespace PasswordExcercise.Tests
 {
-	[TestClass]
 	public class PasswordGeneratorTests
 	{
-		[TestMethod]
+		[Test]
 		public void TestGenerateLengthOnly()
 		{
 			PasswordGenerator generator = new PasswordGenerator();
@@ -17,10 +16,11 @@ namespace PasswordExcercise.Tests
 				MinLength = 8,
 			});
 
-			Assert.IsTrue(result.Length >= 8 && result.Length <= 16);
+			Assert.That(result.Length, Is.AtMost(16));
+			Assert.That(result.Length, Is.AtLeast(8));
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestGenerateAllRequirements()
 		{
 			PasswordGenerator generator = new PasswordGenerator();
@@ -35,14 +35,15 @@ namespace PasswordExcercise.Tests
 				MinSpecialChars = 1
 			});
 
-			Assert.IsTrue(result.Length >= 8 && result.Length <= 16);
+			Assert.That(result.Length, Is.AtMost(16));
+			Assert.That(result.Length, Is.AtLeast(8));
 			Assert.IsTrue(result.Any(char.IsUpper));
 			Assert.IsTrue(result.Any(char.IsLower));
 			Assert.IsTrue(result.Any(char.IsNumber));
 			Assert.IsTrue(result.Any(char.IsSymbol) || result.Any(char.IsPunctuation));
 		}
 
-		[TestMethod]
+		[Test]
 		public void TestGenerateAllRequirments_Multiple()
 		{
 			PasswordGenerator generator = new PasswordGenerator();
@@ -57,13 +58,13 @@ namespace PasswordExcercise.Tests
 				MinSpecialChars = 2
 			});
 
-			Assert.IsTrue(result.Length == 8);
-			Assert.IsTrue(result.Where(char.IsUpper).Count() == 2);
-			Assert.IsTrue(result.Where(char.IsLower).Count() == 2);
-			Assert.IsTrue(result.Where(char.IsNumber).Count() == 2);
+			Assert.That(result.Length, Is.EqualTo(8));
+			Assert.That(result.Where(char.IsUpper).Count(), Is.EqualTo(2));
+			Assert.That(result.Where(char.IsLower).Count(), Is.EqualTo(2));
+			Assert.That(result.Where(char.IsNumber).Count(), Is.EqualTo(2));
 
 			int countSpecial = result.Count(char.IsSymbol) + result.Count(char.IsPunctuation);
-			Assert.IsTrue(countSpecial == 2);
+			Assert.That(countSpecial, Is.EqualTo(2));
 		}
 	}
 }
