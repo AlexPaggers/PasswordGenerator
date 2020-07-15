@@ -57,7 +57,6 @@ namespace PasswordExcercise
 				stringIterator++;
 			}
 
-			// Shuffle the chars
 			string shuffledString = ShuffleString(stringBuilder.ToString());
 
 			return shuffledString;
