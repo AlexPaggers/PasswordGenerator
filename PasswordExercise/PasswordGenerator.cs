@@ -64,12 +64,7 @@ namespace PasswordExcercise
 
 		private string ShuffleString(String unshuffledString, int shuffleFactor = 7)
 		{
-			var charlist = unshuffledString.ToList();
-			for (int i = 0; i < shuffleFactor; i++)
-			{
-				charlist.OrderBy(c => random.Next()).ToList();
-			}
-			return new String(charlist.ToArray());
+			return new string(unshuffledString.ToCharArray().OrderBy(x => Guid.NewGuid()).ToArray());
 		}
 
 		private char GenerateCharFromString(string list)
